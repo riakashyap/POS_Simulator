@@ -25,6 +25,7 @@ responsibility, which adheres to the SRP.
 
 
 
+
 <b>Open/Closed Principle:</b> It is a SOLID principle. The 
 Open/Closed Principle (OCP) is a SOLID design principle that 
 states that software entities such as classes, modules, and 
