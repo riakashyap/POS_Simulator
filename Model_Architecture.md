@@ -1,16 +1,16 @@
-<h1>Architectural Patterns:</h1>
+<h1>Architectural Patterns:</h1></</br>br></br>
 <h2>Model-View-Controller (MVC) pattern:<h2>
 MVC (Model-View-Controller) is a software architectural 
 pattern that separates an application into three main 
-interconnected components:
+interconnected components:</br>
 
 <b>Model<b>: Represents the data and business logic of the 
 application. It is responsible for managing the data, logic, and 
-rules of the application.
+rules of the application.</br>
 
 <b>View</b>: Represents the user interface (UI) of the application. It 
 displays the data from the Model and allows the user to 
-interact with the application.
+interact with the application.</br>
 
 <b>Controller</b>: Acts as an intermediary between the Model and 
 View components. It receives the user's input from the View 
@@ -20,34 +20,34 @@ The idea behind the MVC pattern is to separate the concerns
 of an application into different components. This separation 
 allows developers to work on individual components of the 
 application independently, making it easier to maintain and 
-extend the application over time.
+extend the application over time.</br></br>
   
   
  
-Some of the benefits of using the MVC pattern include:
+Some of the benefits of using the MVC pattern include:</br>
 
-o Separation of concerns: It helps to separate the 
+1) Separation of concerns: It helps to separate the 
 application logic from the user interface, making it easier 
-to manage and maintain the code.
+to manage and maintain the code.</br>
   
   
-o Modular development: The MVC pattern promotes the 
+2) Modular development: The MVC pattern promotes the 
 development of reusable, modular code that can be 
 easily extended and reused in other parts of the 
-application.
+application.</br>
   
   
-o Better testability: The separation of concerns makes it 
+3) Better testability: The separation of concerns makes it 
 easier to test each component of the application 
-independently, improving the overall quality of the code.
+independently, improving the overall quality of the code.</br>
   
   
-o Flexibility: The MVC pattern allows developers to modify 
+4) Flexibility: The MVC pattern allows developers to modify 
 or replace any one of the components without affecting 
 the other components of the application. Overall, the 
 MVC pattern is a popular choice for developing 
 applications because it promotes code maintainability, 
-modularity, and flexibility.
+modularity, and flexibility.</br></br>
   
  
   
