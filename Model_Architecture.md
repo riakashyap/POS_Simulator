@@ -1,4 +1,4 @@
-<h1>Architectural Patterns:</h1></br></br>
+<h1>Architectural Patterns:</h1></br>
 <h2>Model-View-Controller (MVC) pattern:<h2>
 MVC (Model-View-Controller) is a software architectural 
 pattern that separates an application into three main 
