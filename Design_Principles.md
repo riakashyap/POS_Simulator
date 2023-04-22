@@ -1,4 +1,4 @@
-<h1>Design Principles:</h1>
+<h1>Design Principles:</h1></br>
 <b>Single Responsibility Principle (SRP):</b> It is a SOLID principle.
 Each class is designed to have a single responsibility. For 
 example, the connection class is responsible for handling the 
@@ -21,7 +21,7 @@ single responsibility. The ReviewCollector class has a single
 responsibility of collecting reviews, and the 
 FileReviewCollector class has the responsibility
 of saving reviews to a file. Therefore, each class 
-has a single responsibility, which adheres to the SRP./n
+has a single responsibility, which adheres to the SRP.</br>
 
 
 
@@ -46,7 +46,7 @@ this class, and the handle method can be modified to call the
 appropriate method based on the user's input. The 
 ReviewCollector class is also open for extension, as new 
 methods for collecting reviews can be added without 
-modifying the existing code.
+modifying the existing code.</br>
 
 
 
@@ -64,7 +64,7 @@ class is responsible for connecting to the database and
 executing SQL statements. Overall, we can say that the 
 different classes have a well-defined role, and there is no 
 unnecessary interdependence between them. Hence, we can 
-conclude that the code exhibits low coupling.
+conclude that the code exhibits low coupling.</br>
 
 
 
@@ -83,7 +83,7 @@ Finally, the ReviewCollector class's collectReview method is
 called to collect user feedback. The controller principle makes 
 the code modular and easy to maintain by separating the 
 application's main logic from the implementation details of 
-the payment processing and feedback collection.
+the payment processing and feedback collection.</br>
 
 
 
