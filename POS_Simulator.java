@@ -1,4 +1,8 @@
 
+
+// POS Simulator
+
+
 /*
 create table product (
    product_id varchar(6),
@@ -19,11 +23,17 @@ insert into product values ('PES004', 'Grapes', 50, 85, 40, 10, 'Y', '14-APR-202
 insert into product values ('PES005', 'Arial', 15, 300, 13, 10, 'Y', '14-APR-2023', 5);
 insert into product values ('PES006', 'Grinder', 15, 300, 13, 10, 'N', '14-APR-2023', 5);
 */
+
+
+
 import java.sql.*;  
 import java.util.*;  
 import java.io.*;
 
 
+
+
+//Controller
 public class POS_Simulator {
 	public static void main(String args[]){  
 		connection obj = new connection();
@@ -34,131 +44,6 @@ public class POS_Simulator {
 		}  
 	}
 	
-
-class connection{
-	public float model(){
-        float invoiceTotal = 0;
-		try{  
-		int numberOfProducts;
-		int prodFound;
-		Scanner sc = new Scanner(System.in);  
-		String product_id, prodDesc, perishable;
-		float availableQty, price, discQty, discPercent, discPerDay;
-		java.sql.Date purchaseDate;
-		//load the driver class  
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		//create  the connection object  
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory", "root", "");
-		//create the statement object
-		Statement stmt=con.createStatement();  
-		con.setAutoCommit(false);
-		System.out.print("\nEnter Number of Products you want to Buy: ");  
-		numberOfProducts = sc.nextInt();
-		String[] productID = new String[numberOfProducts];  
-		String[] prodDescription = new String[numberOfProducts];
-		int prodQty[] = new int[numberOfProducts];
-		float prodPrice[] = new float[numberOfProducts];
-		float prodDiscount[] = new float[numberOfProducts];
-		float prodAmount[] = new float[numberOfProducts];
-		float lineAmount = 0;
-		int lineQty = 0;
-		int perishDays = 0;
-		
-	  
-		for (int i = 0;i < numberOfProducts; i++)
-		{
-			prodFound = 0;
-			System.out.println("Enter Product Code: ");
-		   
-			product_id = sc.next();  
-			ResultSet rs=stmt.executeQuery("select Product_Description, Product_Quantity, Price, Discount_Quantity, discount_Percent, Perishable_YN, Purchase_Date, Perish_Discount_Per_Day, datediff(sysdate(), Purchase_Date) perish_days from product where product_id = '" + product_id + "'"); 
-			while(rs.next()) 
-			{
-				prodFound = 1;
-				prodDesc = rs.getString(1);
-				availableQty = rs.getFloat(2);
-				if (availableQty == 0)
-				{
-					System.out.printf("Available Qty is 0, Please enter different Product Code!\n");
-					i--;
-					break;
-				}			   
-				price = rs.getFloat(3);
-				discQty = rs.getFloat(4);
-				discPercent = rs.getFloat(5);
-				perishable = rs.getString(6);
-				purchaseDate = rs.getDate(7);
-				discPerDay = rs.getFloat(8);
-				perishDays = rs.getInt(9);
-				System.out.println("Available Quantity for " + prodDesc +": " + availableQty);
-				System.out.println("Is this product perishable (Y/N): " + perishable);
-				System.out.println("Enter Quantity: ");
-				lineQty =  Integer.parseInt(sc.next()); 
-				if (lineQty > (int)availableQty)
-				{
-					System.out.printf("Available Qty: %.0f\n", availableQty);
-					lineQty = (int)availableQty;
-				}			   
-				productID[i] = product_id;
-				prodDescription[i] = prodDesc;
-				prodQty[i] = lineQty;
-				
-				prodPrice[i] = price;
-				prodDiscount[i] = 0;
-				lineAmount = lineQty * price;
-				if (perishable.equals("Y") && perishDays > 0 && discPerDay > 0)
-				{
-					lineAmount = lineAmount - (lineAmount * (discPerDay * perishDays) / 100);
-					prodDiscount[i] = (lineQty * price) - lineAmount;
-				}
-				else if (availableQty > discQty)
-				{
-					if ((availableQty - discQty) > lineQty)
-					{
-						lineAmount = lineAmount - (lineAmount * discPercent / 100);
-					}
-					else
-					{
-						lineAmount = lineAmount - (((availableQty - discQty)  * price) * discPercent / 100);
-					}
-					prodDiscount[i] = (lineQty * price) - lineAmount;
-				}
-				prodAmount[i] = lineAmount;
-				invoiceTotal += lineAmount;
-			}
-			if (prodFound == 0)
-			{
-				System.out.println("Error: Product NOT Found");
-				i--;
-			}
-		}
-        System.out.printf("\n\n\n\n----------------------------------------------------------------------------\n");
-		System.out.printf("                   ****  Product Invoice  ****\n");
-        System.out.printf("----------------------------------------------------------------------------\n");
-		for (int i = 0;i < numberOfProducts; i++)
-		{
-			System.out.printf("Product: %s  Quantity: %d  Price: %.2f  Discount: %.2f  Amount: %.2f\n", 
-											 prodDescription[i], prodQty[i], prodPrice[i], prodDiscount[i], prodAmount[i]);
-		
-			prodFound = stmt.executeUpdate("update product set Product_Quantity = Product_Quantity - " + prodQty[i] + " where product_id = '" + productID[i] + "'");
-		}
-        System.out.printf("----------------------------------------------------------------------------\n");
-		if (invoiceTotal > 0)
-		{
-			System.out.printf("Invoice Total: %.2f\n", invoiceTotal);
-			
-		}
-        System.out.printf("----------------------------------------------------------------------------\n\n\n\n");
-		con.commit();
-        con.close();
-
-	 }catch(Exception e){ System.out.println(e);}
-     return invoiceTotal;
-		}	
-        
-	}
-
-
 
 
 class handlePayment{
@@ -331,6 +216,151 @@ class handlePayment{
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Model
+public class connection{
+	public float model(){
+        float invoiceTotal = 0;
+		try{  
+		int numberOfProducts;
+		int prodFound;
+		Scanner sc = new Scanner(System.in);  
+		String product_id, prodDesc, perishable;
+		float availableQty, price, discQty, discPercent, discPerDay;
+		java.sql.Date purchaseDate;
+		//load the driver class  
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		//create  the connection object  
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory", "root", "");
+		//create the statement object
+		Statement stmt=con.createStatement();  
+		con.setAutoCommit(false);
+		System.out.print("\nEnter Number of Products you want to Buy: ");  
+		numberOfProducts = sc.nextInt();
+		String[] productID = new String[numberOfProducts];  
+		String[] prodDescription = new String[numberOfProducts];
+		int prodQty[] = new int[numberOfProducts];
+		float prodPrice[] = new float[numberOfProducts];
+		float prodDiscount[] = new float[numberOfProducts];
+		float prodAmount[] = new float[numberOfProducts];
+		float lineAmount = 0;
+		int lineQty = 0;
+		int perishDays = 0;
+		
+	  
+		for (int i = 0;i < numberOfProducts; i++)
+		{
+			prodFound = 0;
+			System.out.println("Enter Product Code: ");
+		   
+			product_id = sc.next();  
+			ResultSet rs=stmt.executeQuery("select Product_Description, Product_Quantity, Price, Discount_Quantity, discount_Percent, Perishable_YN, Purchase_Date, Perish_Discount_Per_Day, datediff(sysdate(), Purchase_Date) perish_days from product where product_id = '" + product_id + "'"); 
+			while(rs.next()) 
+			{
+				prodFound = 1;
+				prodDesc = rs.getString(1);
+				availableQty = rs.getFloat(2);
+				if (availableQty == 0)
+				{
+					System.out.printf("Available Qty is 0, Please enter different Product Code!\n");
+					i--;
+					break;
+				}			   
+				price = rs.getFloat(3);
+				discQty = rs.getFloat(4);
+				discPercent = rs.getFloat(5);
+				perishable = rs.getString(6);
+				purchaseDate = rs.getDate(7);
+				discPerDay = rs.getFloat(8);
+				perishDays = rs.getInt(9);
+				System.out.println("Available Quantity for " + prodDesc +": " + availableQty);
+				System.out.println("Is this product perishable (Y/N): " + perishable);
+				System.out.println("Enter Quantity: ");
+				lineQty =  Integer.parseInt(sc.next()); 
+				if (lineQty > (int)availableQty)
+				{
+					System.out.printf("Available Qty: %.0f\n", availableQty);
+					lineQty = (int)availableQty;
+				}			   
+				productID[i] = product_id;
+				prodDescription[i] = prodDesc;
+				prodQty[i] = lineQty;
+				
+				prodPrice[i] = price;
+				prodDiscount[i] = 0;
+				lineAmount = lineQty * price;
+				if (perishable.equals("Y") && perishDays > 0 && discPerDay > 0)
+				{
+					lineAmount = lineAmount - (lineAmount * (discPerDay * perishDays) / 100);
+					prodDiscount[i] = (lineQty * price) - lineAmount;
+				}
+				else if (availableQty > discQty)
+				{
+					if ((availableQty - discQty) > lineQty)
+					{
+						lineAmount = lineAmount - (lineAmount * discPercent / 100);
+					}
+					else
+					{
+						lineAmount = lineAmount - (((availableQty - discQty)  * price) * discPercent / 100);
+					}
+					prodDiscount[i] = (lineQty * price) - lineAmount;
+				}
+				prodAmount[i] = lineAmount;
+				invoiceTotal += lineAmount;
+			}
+			if (prodFound == 0)
+			{
+				System.out.println("Error: Product NOT Found");
+				i--;
+			}
+		}
+        System.out.printf("\n\n\n\n----------------------------------------------------------------------------\n");
+		System.out.printf("                   ****  Product Invoice  ****\n");
+        System.out.printf("----------------------------------------------------------------------------\n");
+		for (int i = 0;i < numberOfProducts; i++)
+		{
+			System.out.printf("Product: %s  Quantity: %d  Price: %.2f  Discount: %.2f  Amount: %.2f\n", 
+											 prodDescription[i], prodQty[i], prodPrice[i], prodDiscount[i], prodAmount[i]);
+		
+			prodFound = stmt.executeUpdate("update product set Product_Quantity = Product_Quantity - " + prodQty[i] + " where product_id = '" + productID[i] + "'");
+		}
+        System.out.printf("----------------------------------------------------------------------------\n");
+		if (invoiceTotal > 0)
+		{
+			System.out.printf("Invoice Total: %.2f\n", invoiceTotal);
+			
+		}
+        System.out.printf("----------------------------------------------------------------------------\n\n\n\n");
+		con.commit();
+        con.close();
+
+	 }catch(Exception e){ System.out.println(e);}
+     return invoiceTotal;
+		}	
+        
+	}
 
 
 interface Payment {
