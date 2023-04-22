@@ -25,7 +25,7 @@ becomes easier to add new payment types in the future
 without having to modify the existing code. All that is 
 required is to create a new payment class and update the 
 PaymentFactory class to include the new payment type. This 
-makes the code more modular and extensible.</br>
+makes the code more modular and extensible.</br></br>
 
 <b>Strategy Pattern:</b> The Strategy pattern is a behavioral design 
 pattern that allows you to define a family of algorithms, 
@@ -53,7 +53,7 @@ method of that object to process the payment. This design
 pattern allows us to add new payment types and change the 
 payment processing algorithm without modifying the existing 
 code. It makes the code more flexible, reusable, and easy to 
-maintain.</br>
+maintain.</br></br>
 
 <b>Template Method Pattern:</b> It is design pattern, which is a 
 behavioral pattern that defines the skeleton of an algorithm 
@@ -82,7 +82,7 @@ in the future, there is a need to save the reviews to a
 database, a new subclass could be created that overrides the 
 saveReviewToFile() method to save the review to a database. 
 This can be done without changing the structure which 
-reduces the risk of errors.</br>
+reduces the risk of errors.</br></br>
 
 <b>Try Catch pattern:</b> The try-catch design pattern in Java is used 
 to handle exceptions that can occur during the execution of a 
