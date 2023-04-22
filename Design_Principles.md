@@ -19,10 +19,9 @@ responsibility. The GiftCardPayment class authenticates the
 gift card by connecting to the gift card server, which is its 
 single responsibility. The ReviewCollector class has a single 
 responsibility of collecting reviews, and the 
-FileReviewCollector class has the responsibility of saving 
-reviews to a file. Therefore, each class has a single 
-responsibility, which adheres to the SRP.
-
+FileReviewCollector class has the responsibility
+of saving reviews to a file. Therefore, each class 
+has a single responsibility, which adheres to the SRP./n
 
 
 
